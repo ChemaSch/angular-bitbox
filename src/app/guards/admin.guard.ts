@@ -8,7 +8,7 @@ import { Role } from '../enums/role.enum';
 })
 export class AdminGuard implements CanActivate {
 
-  constructor(public _userService: UserService) {}
+  constructor(private _userService: UserService) {}
 
   canActivate() {
     if(this._userService.user.role === Role.admin) {

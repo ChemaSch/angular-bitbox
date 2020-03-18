@@ -6,15 +6,14 @@ import { RegisterComponent } from './components/register/register.component';
 import { UserComponent } from './components/user/user.component';
 import { ItemComponent } from './components/item/item.component';
 
-import { AdminGuard } from './guards/admin.guard';
 import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'item', component: ItemComponent, canActivate: [ AuthGuard ] },
+  { path: 'items', component: ItemComponent, canActivate: [ AuthGuard ] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'user', component: UserComponent },
+  { path: 'users', component: UserComponent },
   { path: '**', redirectTo: 'login', pathMatch: 'full' }
 ];
 

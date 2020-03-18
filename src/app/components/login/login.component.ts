@@ -11,7 +11,7 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-  user: User;
+  user: User = new User();
   reminder: boolean = false;
 
   constructor(private router: Router,
@@ -28,11 +28,11 @@ export class LoginComponent implements OnInit {
 
   login (f: NgForm) {
 
-    if(f.invalid) {return;}
+    if(f.invalid) { return; }
 
     this._userService.login(this.user, f.value.remember)
       .subscribe( response => {
-        this.router.navigateByUrl('/item'); 
+        this.router.navigateByUrl('/items'); 
     });
 
   }

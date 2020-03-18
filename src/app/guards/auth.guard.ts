@@ -7,11 +7,8 @@ import { UserService } from '../services/user.service';
 })
 export class AuthGuard implements CanActivate {
 
-
   constructor(private _userService: UserService,
-              private router: Router){
-
-  }
+              private router: Router){}
 
   // Check is the user is authenticated or not.
   canActivate(): boolean {
@@ -19,6 +16,7 @@ export class AuthGuard implements CanActivate {
       return true;
     } else 
       this.router.navigate(['login']);
+      return false;
   }
   
 }

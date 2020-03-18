@@ -32,7 +32,11 @@ export class UserComponent implements OnInit {
     
   }
 
-  getUser() {}
+  // Get an user.
+  getUser(id: string) {
+    this._userService.getUser(id)
+      .subscribe(users => this.users = users);
+  }
 
   saveUser(user: User) {
 
