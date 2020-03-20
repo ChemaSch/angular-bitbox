@@ -1,0 +1,22 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#">
+        <img src="../../../../assets/img/angular-icon.png" width="30" height="30"> BitBoxApp
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item" routerLinkActive="active" *ngIf="_userService.isAuthenticated()">
+                <a class="nav-link" routerLink="items">Items</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="_userService.isAdminRole()">
+                <a class="nav-link" routerLink="users">Users</a>
+            </li>
+            <li class="nav-item" routerLinkActive="active" *ngIf="_userService.isAuthenticated()">
+                <a class="nav-link pointer" (click)="_userService.logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

@@ -7,14 +7,15 @@ import { UserComponent } from './components/user/user.component';
 import { ItemComponent } from './components/item/item.component';
 
 import { AuthGuard } from './guards/auth.guard';
+import { AdminGuard } from './guards/admin.guard';
 
-
-const routes: Routes = [
-  { path: 'items', component: ItemComponent, canActivate: [ AuthGuard ] },
+const routes: Routes = [  
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'users', component: UserComponent },
-  { path: '**', redirectTo: 'login', pathMatch: 'full' }
+  { path: 'items', component: ItemComponent, canActivate: [ AuthGuard ] },
+  { path: 'users', component: UserComponent, canActivate: [ AdminGuard ] },
+  { path: '**', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'login', pathMatch: 'full', }
 ];
 
 @NgModule({

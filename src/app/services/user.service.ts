@@ -4,11 +4,12 @@ import { Router } from '@angular/router';
 
 import { User } from '../models/user.model';
 
-import swal from 'sweetalert2';
 import { throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { SERVICE_URL } from '../config/properties.config';
+import { Role } from '../enums/role.enum';
 
+import swal from 'sweetalert2';
 
 @Injectable({
   providedIn: 'root'
@@ -32,6 +33,7 @@ export class UserService {
     sessionStorage.setItem('user', JSON.stringify(user));
   }
 
+  // Check if the user is authenticated or not.
   isAuthenticated() {
      return sessionStorage.getItem('user') != null;
   }
@@ -48,8 +50,12 @@ export class UserService {
     let url = SERVICE_URL + '/login';
     return this.http.post(url, user)
     .pipe(
-      map((response: any) => {        
+      map((response: any) => {
+
           this.saveSessionStorage(response);
+
+          // Save the user role in session storage for enable the user tab.
+          sessionStorage.setItem('role', response.role);
       }),
       catchError( error => {
         swal.fire('Failed to authenticate user', error.message, 'error');
@@ -59,14 +65,19 @@ export class UserService {
 
   }
 
+  // Logout.
   logout() {
 
     this.user = null;
-
     sessionStorage.removeItem('user');
-
+    sessionStorage.removeItem('role');
     this.router.navigate(['/login']);
 
+  }
+
+  // Check if the user has admin role.
+  isAdminRole() {
+    return sessionStorage.getItem('role') === Role.admin;
   }
 
   // Get all users.
@@ -76,8 +87,7 @@ export class UserService {
 
     return this.http.get(url)
     .pipe(
-      map( (response: any) => {
-        console.log(response);
+      map( (response: any) => {        
         return response;
       }),
       catchError(error => {
@@ -88,13 +98,12 @@ export class UserService {
 
   // Get an user by ID.
   getUser(id: string) {
-
+        
     let url = SERVICE_URL + '/users/' + id;
 
     return this.http.get( url )
     .pipe(
-      map( (response: any) => {
-        console.log(response);
+      map( (response: any) => {        
         return response;
       }),
       catchError( error => {        

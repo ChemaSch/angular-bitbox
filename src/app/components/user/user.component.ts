@@ -9,7 +9,7 @@ import { UserService } from '../../services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  users: User[] = [];
+  users: User[] = [];  
   loading: boolean = true;  
 
   constructor(private _userService: UserService) { }
@@ -33,11 +33,11 @@ export class UserComponent implements OnInit {
   }
 
   // Get an user.
-  getUser(id: string) {
-    this._userService.getUser(id)
-      .subscribe(users => this.users = users);
+  getUser(user: User) {    
+    this._userService.getUser(user.id).subscribe(users => this.users[0] = users);
   }
 
+  // Register a new user.
   saveUser(user: User) {
 
     this._userService.saveUser(user)
@@ -45,9 +45,13 @@ export class UserComponent implements OnInit {
 
   }
 
+  // Update an existing user.
   updateUser(){}
 
-  deleteUser(user: User) {}
+  // Delele an user.
+  deleteUser(user: User) {
+    this._userService.deleteUser(user.id).subscribe();
+  }
 
 
 }
