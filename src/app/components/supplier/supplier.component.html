@@ -1,0 +1,39 @@
+<h1>Supplier <small> {{ supplier.name }} </small></h1>
+<hr>
+
+<div class="row text-right">
+    <div class="col">
+        <button routerLink="/suppliers" class="btn btn-outline-secondary"> 
+            <i class="fa fa-arrow-left"></i>
+            Back            
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <form ngNativeValidate (ngSubmit)="saveOrUpdate(f)" #f="ngForm">
+
+            <div class="form-group">
+                <label for="name">Username</label>
+                <input class="form-control" type="text" name="name" [(ngModel)]="supplier.name" placeholder="Username" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Country</label>
+                <select class="form-control" name="role" [(ngModel)]="supplier.country">
+                    <option *ngFor="let country of countries" [ngValue]="country">{{ country.country }}</option>                    
+                </select>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

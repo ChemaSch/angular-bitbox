@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../models/user.model';
 import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { ActivatedRoute } from '@angular/router';
+import { NgForm } from '@angular/forms';
+
+import { Observable } from 'rxjs';
+import { Role } from '../../enums/role.enum';
 
 @Component({
   selector: 'app-user',
@@ -9,49 +14,69 @@ import { UserService } from '../../services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  users: User[] = [];  
-  loading: boolean = true;  
+  user = new User();
+  isNewUser: boolean = true;
+  roles: any[] = [];
 
-  constructor(private _userService: UserService) { }
+  constructor(private _userService: UserService,
+              private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
-    this.getUsers();
+    const id = this.route.snapshot.paramMap.get('id');
+    this.existUser(id);
+    this.Roles();
+  }
+
+  // Check if the option is new user or update user.
+  existUser(id: string) {
+
+    if(id !== 'new') {
+      this.getUser(id);
+      this.isNewUser = false;
+    } else {
+      this.isNewUser = true;
+    }
 
   }
 
-  // Get all users.
-  getUsers() {
-
-    this.loading = true;
-
-    this._userService.getUsers()
-      .subscribe( users => this.users = users );
-
-    this.loading = false;
-    
+  // Register enum role object into a list to use in a select.
+  Roles() {
+    for (let role in Role) {
+      this.roles.push({text: role, value: Role[role]});
+    }
   }
 
   // Get an user.
-  getUser(user: User) {    
-    this._userService.getUser(user.id).subscribe(users => this.users[0] = users);
+  getUser(id: string) {    
+    this._userService.getUser(id).subscribe(user => this.user = user);
   }
 
   // Register a new user.
   saveUser(user: User) {
-
-    this._userService.saveUser(user)
-      .subscribe();
-
+    this._userService.saveUser(user).subscribe();
   }
 
   // Update an existing user.
-  updateUser(){}
-
-  // Delele an user.
-  deleteUser(user: User) {
-    this._userService.deleteUser(user.id).subscribe();
+  updateUser(user: User){
+    this._userService.updateUser(user).subscribe( user => this.user = user );
   }
 
+  saveOrUpdate( f: NgForm ) {
+    
+    if(f.invalid) { return; }
+    
+    let request: Observable<any>;
+
+    // If exist user, call to updateUser method. If not, call to saveUser.
+    if( this.user.id ) {
+      request = this._userService.updateUser(this.user);
+    } else {
+      request = this._userService.saveUser(this.user);
+    }
+    
+    request.subscribe();
+
+  }
 
 }

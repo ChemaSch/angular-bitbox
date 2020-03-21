@@ -8,19 +8,29 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { UserComponent } from './components/user/user.component';
-import { ItemComponent } from './components/item/item.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
+
+import { UsersComponent } from './components/users/users.component';
+import { UserComponent } from './components/user/user.component';
+
+import { ItemsComponent } from './components/items/items.component';
+import { ItemComponent } from './components/item/item.component';
+
+import { SuppliersComponent } from './components/suppliers/suppliers.component';
+import { SupplierComponent } from './components/supplier/supplier.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    RegisterComponent,
+    LoginComponent,    
+    UsersComponent,
     UserComponent,
     ItemComponent,
-    NavbarComponent
+    NavbarComponent,
+    ItemsComponent,
+    SuppliersComponent,
+    SupplierComponent
   ],
   imports: [
     BrowserModule,

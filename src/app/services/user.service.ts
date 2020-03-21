@@ -18,7 +18,11 @@ export class UserService {
 
   user: User;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+
+    this.loadSessionStorage();
+
+  }
 
   loadSessionStorage() {
     if(sessionStorage.getItem('user')) {
@@ -58,8 +62,10 @@ export class UserService {
           sessionStorage.setItem('role', response.role);
       }),
       catchError( error => {
+
         swal.fire('Failed to authenticate user', error.message, 'error');
         return throwError(error.message);
+        
       })
     )
 
@@ -87,8 +93,8 @@ export class UserService {
 
     return this.http.get(url)
     .pipe(
-      map( (response: any) => {        
-        return response;
+      map( (usersDB: any) => {        
+        return usersDB;
       }),
       catchError(error => {
         return throwError(error);
@@ -101,10 +107,10 @@ export class UserService {
         
     let url = SERVICE_URL + '/users/' + id;
 
-    return this.http.get( url )
+    return this.http.get(url)
     .pipe(
-      map( (response: any) => {        
-        return response;
+      map( (userDB: any) => {               
+        return userDB;
       }),
       catchError( error => {        
         return throwError(error);
@@ -121,12 +127,17 @@ export class UserService {
     return this.http.post(url, user)
     .pipe(
       map( (response: any) => {
+
         swal.fire('User created!', user.name, 'success');
+        this.router.navigate(['/users']);
         return response;
+
       }),
       catchError( error => {
+
         swal.fire('User not created!', error, 'error');
         return throwError(error);
+
       })
 
     );
@@ -142,17 +153,20 @@ export class UserService {
     .pipe(
       map( (response: any) => {
         
-        if(user.id === this.user.id) {          
+        if(user.id === this.user.id) {
           this.saveSessionStorage(response);          
         }
-
+        
         swal.fire('Updated user!', user.name, 'success');
+        this.router.navigate(['/users']);
         return response;
 
       }),
       catchError( error => {
+
         swal.fire('User not updated!', error, 'error');
         return throwError(error);
+
       })
     );
 
@@ -166,12 +180,16 @@ export class UserService {
     return this.http.delete( url )
     .pipe(
       map( (response: any) => {
+
         swal.fire('User deleted!', 'The user has been deleted...', 'success')
-        return true;
+        return response;
+
       }),
       catchError( error => {
+
         swal.fire('The user could not be deleted!', error, 'error');
         return throwError(error);
+
       })
     )
 

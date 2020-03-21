@@ -1,31 +1,44 @@
-<h1>Users list</h1>
+<h1>User <small> {{ user.name }} </small></h1>
 <hr>
 
-<div class="row animated fadeIn">
+<div class="row text-right">
+    <div class="col">
+        <button routerLink="/users" class="btn btn-outline-secondary"> 
+            <i class="fa fa-arrow-left"></i>
+            Back            
+        </button>
+    </div>
+</div>
 
-    <button class="btn btn-warning">Create</button>
+<div class="row">
+    <div class="col">
+        <form ngNativeValidate (ngSubmit)="saveOrUpdate(f)" #f="ngForm">
 
-    <table class="table table-striped table-dark ">
-        <thead class="thead-dark text-center">
-            <tr>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody class="text-center">
-            <tr *ngFor="let user of users">
-                <td>{{ user.name }}</td>
-                <td>
-                    <label class="badge badge-info">{{ user.role }}</label>
-                </td>
-                <td>
-                    <button (click)="getUser(user)" class="btn btn-info m-2">Detail</button>
-                    <button (click)="saveUser(user)" class="btn btn-primary m-2">Edit</button>
-                    <button (click)="deleteUser(user)" class="btn btn-danger m-2">Delete</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+            <div class="form-group">
+                <label for="name">Username</label>
+                <input class="form-control" type="text" name="name" [(ngModel)]="user.name" placeholder="Username" required>
+            </div>
 
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input class="form-control" type="password" name="password" [(ngModel)]="user.password" placeholder="Password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role</label>
+                <select class="form-control" name="role" [(ngModel)]="user.role">
+                    <option *ngFor="let role of roles" [value]="role.value">{{ role.value }}</option>                    
+                </select>
+            </div>
+            <hr>
+
+            <div class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+
+        </form>
+    </div>
 </div>

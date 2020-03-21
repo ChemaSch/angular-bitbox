@@ -15,8 +15,12 @@
                 <a class="nav-link" routerLink="users">Users</a>
             </li>
             <li class="nav-item" routerLinkActive="active" *ngIf="_userService.isAuthenticated()">
-                <a class="nav-link pointer" (click)="_userService.logout()">Logout</a>
+                <a class="nav-link" routerLink="suppliers">Suppliers</a>
             </li>
+            <button *ngIf="_userService.isAuthenticated()" class="btn btn-outline-danger text-right" (click)="_userService.logout()">
+                <i class="fa fa-sign-out"></i>
+                    Sign Out
+            </button>
         </ul>
     </div>
 </nav>
