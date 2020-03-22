@@ -14,28 +14,38 @@ import { Role } from '../../enums/role.enum';
 })
 export class UserComponent implements OnInit {
 
-  user = new User();
-  isNewUser: boolean = true;
+  user = new User();  
   roles: any[] = [];
+
+  isDetail: boolean;
 
   constructor(private _userService: UserService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
+    const detail = this.route.snapshot.paramMap.get('detail');
+    this.isDetailView(detail); 
+
     const id = this.route.snapshot.paramMap.get('id');
     this.existUser(id);
     this.Roles();
+    
+  }
+
+  isDetailView(detail: string) {
+    if(detail === "detail") {
+      this.isDetail = true;
+    } else {
+      this.isDetail = false;
+    }
   }
 
   // Check if the option is new user or update user.
   existUser(id: string) {
 
     if(id !== 'new') {
-      this.getUser(id);
-      this.isNewUser = false;
-    } else {
-      this.isNewUser = true;
+      this.getUser(id);      
     }
 
   }

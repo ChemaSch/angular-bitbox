@@ -1,1 +1,66 @@
-<p>item works!</p>
+<h1>Item <small> {{ item.description }} </small></h1>
+<hr>
+
+<div class="row text-right">
+    <div class="col">
+        <button routerLink="/items" class="btn btn-outline-secondary"> 
+            <i class="fa fa-arrow-left"></i>
+            Back   
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <form ngNativeValidate (ngSubmit)="saveOrUpdate(f)" #f="ngForm">
+
+            <div class="form-group">
+                <label for="item_code">Item Code</label>
+                <input class="form-control" type="text" name="item_code" [(ngModel)]="item.item_code" [disabled]="isDetail" [readonly]="update" placeholder="Item Code" required>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <input class="form-control" type="text" name="description" [(ngModel)]="item.description" [disabled]="isDetail" placeholder="Description" required>
+            </div>
+
+            <div class="form-group">
+                <label for="item_state">State</label>
+                <select [disabled]="isDetail" class="form-control" name="item_state" [(ngModel)]="item.item_state">
+                    <option *ngFor="let item_state of item_states" [value]="item_state.value">{{ item_state.value }}</option>                    
+                </select>
+            </div>
+
+            <div *ngIf="isDiscontinued()" class="form-group">
+                <label for="reason">Reason</label>
+                <input class="form-control" type="text" name="reason" [(ngModel)]="item.reason" [disabled]="isDetail" placeholder="Reason">
+            </div>
+
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input class="form-control" type="number" name="price" [(ngModel)]="item.price" [disabled]="isDetail" placeholder="Price">
+            </div>
+
+            <div *ngIf="isDetail" class="form-group">
+                <label for="creation_date">Creation date</label>
+                <input class="form-control" type="text" name="creation_date" [(ngModel)]="item.creation_date" disabled>
+            </div>
+
+            <div class="form-group">
+                <label for="creator">Creator</label>
+                <input class="form-control" type="text" name="creator" [ngModel]="item.creator.name" disabled>
+            </div>
+            {{ item | json }}
+
+            <hr>
+
+            <div *ngIf="!isDetail" class="form-group">
+                <button class="btn btn-primary" type="submit">
+                    <i class="fa fa-save"></i>
+                    Save
+                </button>
+            </div>
+
+        </form>
+    </div>
+</div>

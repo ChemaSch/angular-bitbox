@@ -14,22 +14,33 @@ import { Observable } from 'rxjs';
 })
 export class SupplierComponent implements OnInit {
 
-  supplier = new Supplier();
-  isNewSupplier: boolean = true;
-  countries: Country[] = [];
+  supplier = new Supplier();  
+  countries: Country[] = [];  
 
-  country = this.countries[0]; // Tengo el país seleccionado, ahora tengo que ponerlo dentro de supplier.
-
+  isDetail: boolean;
+  
   constructor(private _countryService: CountryService,
               private _supplierService: SupplierService,
               private route: ActivatedRoute) { }
 
   ngOnInit(): void {
 
+    const detail = this.route.snapshot.paramMap.get('detail');
+    this.isDetailView(detail);    
+
     const id = this.route.snapshot.paramMap.get('id');
     this.existSupplier(id);
+
     this.getCountries();
 
+  }
+
+  isDetailView(detail: string) {
+    if(detail === "detail") {
+      this.isDetail = true;
+    } else {
+      this.isDetail = false;
+    }
   }
 
   // Check if the option is new supplier or update supplier.
@@ -37,9 +48,6 @@ export class SupplierComponent implements OnInit {
 
     if(id !== 'new') {
       this.getSupplier(id);
-      this.isNewSupplier = false;
-    } else {
-      this.isNewSupplier = true;
     }
 
   }

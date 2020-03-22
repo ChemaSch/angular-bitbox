@@ -24,7 +24,7 @@
                 <td>{{ supplier.name }}</td>
                 <td>{{ supplier.country.country }}</td>
                 <td>
-                    <button class="btn btn-outline-info mr-1" [routerLink]="['/supplier', supplier.id]">
+                    <button class="btn btn-outline-info mr-1" [routerLink]="['/supplier', detail, supplier.id]">
                         <i class="fa fa-info-circle"></i>                                         
                     </button>
                     <button class="btn btn-outline-warning m-1" [routerLink]="['/supplier', supplier.id]">

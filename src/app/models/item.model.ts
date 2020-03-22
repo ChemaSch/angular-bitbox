@@ -8,12 +8,12 @@ export class Item {
 
     public item_code: string;
     public description: string;
-    public price: number;
-    public item_state: Item_State;
-    public reason: string;
+    public item_state: Item_State;   
+    public price: number;    
     public creation_date: Date;
     public creator: User; 
+    public reason?: string;
     public suppliers?: Supplier[];
-    public price_reductions?: Price_Reduction[];
+    public price_reductionssss?: Price_Reduction[];
 
 }

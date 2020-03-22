@@ -77,7 +77,7 @@ export class SupplierService {
   // Update a supplier.
   updateSupplier(supplier: Supplier) {
 
-    let url = SERVICE_URL + '/users/' + supplier.id;
+    let url = SERVICE_URL + '/suppliers/' + supplier.id;
 
     return this.http.put(url, supplier)
     .pipe(
@@ -105,7 +105,7 @@ export class SupplierService {
     .pipe(
       map( (response: any) => {
 
-        swal.fire('Supplier deleted!', 'The supplier has been deleted...', 'success')
+        swal.fire('Supplier deleted!', 'The supplier has been deleted...', 'success')        
         return response;
 
       }),

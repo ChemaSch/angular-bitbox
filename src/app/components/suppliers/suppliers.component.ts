@@ -12,6 +12,7 @@ import { Country } from '../../models/country.model';
 export class SuppliersComponent implements OnInit {
 
   suppliers: Supplier[] = [];
+  detail = "detail";
 
   constructor(private _supplierService: SupplierService) { }
 

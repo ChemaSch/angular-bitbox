@@ -27,7 +27,7 @@
                     <span *ngIf="user.role !== 'ADMIN' " class="badge badge-info">{{ user.role }}</span>
                 </td>
                 <td>
-                    <button class="btn btn-outline-info mr-1" [routerLink]="['/user', user.id]">
+                    <button class="btn btn-outline-info mr-1" [routerLink]="['/user', detail, user.id]">
                         <i class="fa fa-info-circle"></i>                                                    
                     </button>
                     <button class="btn btn-outline-warning m-1" [routerLink]="['/user', user.id]">
