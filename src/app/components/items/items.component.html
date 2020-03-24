@@ -2,10 +2,13 @@
 <hr>
 
 <div class="row">
-    <div class="col text-right">
+
+    <input type="text" class="form-control" name="searchItemState" placeholder="Search..." [(ngModel)]="searchItemState">
+
+    <div class="col text-right mt-2">
         <button routerLink="/item/new" class="btn btn-outline-success"> 
-            <i class="fa fa-plus"></i>               
-                Create             
+        <i class="fa fa-plus"></i>               
+            Create             
         </button>
     </div>
 
@@ -23,7 +26,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of items; let i = index">
+            <tr *ngFor="let item of items | filter: 'item_state': searchItemState; let i = index">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>{{ item.item_code }}</td>
                 <td>{{ item.description }}</td>
@@ -41,7 +44,7 @@
                     <button class="btn btn-outline-warning m-1" [routerLink]="['/item', item.item_code]">
                         <i class="fa fa-edit"></i>                            
                     </button>
-                    <button class="btn btn-outline-danger m-1" (click)="deleteItem(item)">
+                    <button *ngIf="isAdmin()" class="btn btn-outline-danger m-1" (click)="deleteItem(item)">
                         <i class="fa fa-trash"></i>                            
                     </button>
                 </td>

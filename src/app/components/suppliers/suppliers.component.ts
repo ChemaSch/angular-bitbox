@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Supplier } from '../../models/supplier.model';
 import { SupplierService } from '../../services/supplier.service';
-import { CountryService } from '../../services/country.service';
-import { Country } from '../../models/country.model';
 
 @Component({
   selector: 'app-suppliers',

@@ -18,6 +18,9 @@ import { ItemComponent } from './components/item/item.component';
 
 import { SuppliersComponent } from './components/suppliers/suppliers.component';
 import { SupplierComponent } from './components/supplier/supplier.component';
+import { PriceReductionsComponent } from './components/price-reductions/price-reductions.component';
+import { PriceReductionComponent } from './components/price-reduction/price-reduction.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 
 @NgModule({
@@ -30,7 +33,10 @@ import { SupplierComponent } from './components/supplier/supplier.component';
     NavbarComponent,
     ItemsComponent,
     SuppliersComponent,
-    SupplierComponent
+    SupplierComponent,
+    PriceReductionsComponent,
+    PriceReductionComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
@@ -38,6 +44,9 @@ import { SupplierComponent } from './components/supplier/supplier.component';
     BrowserAnimationsModule,    
     HttpClientModule,
     FormsModule
+  ],
+  exports: [
+    FilterPipe
   ],
   providers: [],
   bootstrap: [AppComponent]

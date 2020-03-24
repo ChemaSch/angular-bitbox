@@ -76,17 +76,13 @@ export class SupplierComponent implements OnInit {
     
     if(f.invalid) { return; }
     
-    let request: Observable<any>;
-
     // If exist user, call to updateUser method. If not, call to saveUser.
-    if( this.supplier.id ) {
-      request = this._supplierService.updateSupplier(this.supplier);
-    } else {
-      request = this._supplierService.saveSupplier(this.supplier);
+    if( this.supplier.id ) {      
+      this.updateSupplier(this.supplier);
+    } else {      
+      this.saveSupplier(this.supplier);
     }
-    
-    request.subscribe();
-
+        
   }
 
 }

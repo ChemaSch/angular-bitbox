@@ -13,7 +13,8 @@ export class Item {
     public creation_date: Date;
     public creator: User; 
     public reason?: string;
+    public user_deactivation?: User;
     public suppliers?: Supplier[];
-    public price_reductionssss?: Price_Reduction[];
+    public price_reductions?: Price_Reduction[];
 
 }

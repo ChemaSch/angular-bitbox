@@ -12,12 +12,26 @@ export class ItemsComponent implements OnInit {
   items: Item[] = [];
   detail = "detail";
 
+  admin: string;
+
+  searchItemState = '';
+
   constructor(private _itemService: ItemService) { }
 
   ngOnInit(): void {
 
     this.getItems();
 
+  }
+
+  // Check if the user has admin role for enable the delete option in the list.
+  isAdmin() {
+    this.admin = sessionStorage.getItem('role');
+    if(this.admin === "ADMIN") {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Get all items.
